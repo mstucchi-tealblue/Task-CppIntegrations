@@ -9,6 +9,7 @@ struct ContactItem
 {
     QString name;
     QString number;
+    bool favourite;
 
 };
 

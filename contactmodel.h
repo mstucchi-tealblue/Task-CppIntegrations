@@ -16,7 +16,8 @@ public:
     //Defining the model roles
     enum {
         NameRole = Qt::UserRole,
-        NumberRole
+        NumberRole,
+        FavouriteRole
     };
 
     // Basic functionality:

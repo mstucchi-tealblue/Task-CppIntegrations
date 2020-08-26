@@ -29,6 +29,8 @@ QVariant ContactModel::data(const QModelIndex &index, int role) const
         return QVariant(item.name);
     case NumberRole:
         return QVariant(item.number);
+    case FavouriteRole:
+        return QVariant(item.favourite);
     }
 
     return QVariant();
@@ -46,6 +48,9 @@ bool ContactModel::setData(const QModelIndex &index, const QVariant &value, int 
         break;
     case NumberRole:
         item.number = value.toString();
+        break;
+    case FavouriteRole:
+        item.favourite = value.toBool();
         break;
     }
 
@@ -70,6 +75,7 @@ QHash<int, QByteArray> ContactModel::roleNames() const
     QHash<int, QByteArray> names;
     names[NameRole] = "name";
     names[NumberRole] = "number";
+    names[FavouriteRole] = "favourite";
     return names;
 
 }
