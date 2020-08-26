@@ -1,4 +1,7 @@
 #include "contactlist.h"
+#include <iostream>
+
+
 
 ContactList::ContactList(QObject *parent) : QObject(parent)
 {
@@ -50,4 +53,31 @@ void ContactList::removeItem(int index)
     emit preItemRemoved(index);
     mItems.removeAt(index);
     emit postItemRemoved();
+}
+
+void ContactList::updateItem(int index, QString name, QString number, QString favourite)
+{
+    emit preItemUpdated(index);
+
+    if(favourite != "Yes") favourite = "No";
+    mItems[index].name = name;
+    mItems[index].number = number;
+    mItems[index].favourite = favourite == "Yes" ? true: false;
+
+    emit postItemUpdated();
+}
+
+QString ContactList::getItemName(int index) {
+    return getItems()[index].name;
+}
+
+QString ContactList::getItemNumber(int index)
+{
+    return getItems()[index].number;
+}
+
+QString ContactList::getItemFavourite(int index)
+{
+    if( getItems()[index].favourite ) return QString("Yes");
+    return QString("No");
 }

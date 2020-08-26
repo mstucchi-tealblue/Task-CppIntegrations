@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>ContactsBook.qml</file>
         <file>AddNewContactPopup.qml</file>
+        <file>InfoPopup.qml</file>
     </qresource>
 </RCC>

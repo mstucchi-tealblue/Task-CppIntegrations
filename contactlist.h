@@ -23,15 +23,25 @@ public:
 
     QVector<ContactItem> getItems() const;
 
+
 signals:
     void preItemAppended();
     void postItemAppended();
     void preItemRemoved(int index);
     void postItemRemoved();
+    void preItemUpdated(int index);
+    void postItemUpdated();
 
 public slots:
     void appendItem(QString name, QString number, bool favourite);
     void removeItem(int index);
+    void updateItem(int index, QString name, QString number, QString favourite);
+
+    QString getItemName(int index);
+    QString getItemNumber(int index);
+    QString getItemFavourite(int index);
+
+
 
 private:
     QVector<ContactItem> mItems;

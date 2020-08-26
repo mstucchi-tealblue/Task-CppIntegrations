@@ -34,6 +34,7 @@ ColumnLayout {
                                 onDoubleClicked: {
                                     infoPopup.x = root.width/2 - infoPopup.width/2;
                                     infoPopup.y = root.height/2 - infoPopup.height/2;
+                                    infoPopup.contactIndex = model.index
                                     infoPopup.open()
                                 }
                             }
@@ -85,6 +86,10 @@ ColumnLayout {
 
     AddNewContactPopup {
         id: addNewContactPopup
+    }
+
+    InfoPopup {
+        id: infoPopup
     }
 
 
