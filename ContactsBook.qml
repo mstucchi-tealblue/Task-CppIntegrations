@@ -8,16 +8,13 @@ ColumnLayout {
     Frame {
         id: root
         Layout.fillWidth: true
-
-        RowLayout {
+         RowLayout {
             ColumnLayout{
-
                 ListView {
                     id: book
                     implicitWidth: 250
                     implicitHeight: 250
                     clip: true
-                    Layout.alignment: Qt.AlignRight
                     //anchors.fill: parent
                     model: ContactModel {
                         id: contactModel
@@ -65,12 +62,6 @@ ColumnLayout {
             }
 
         }
-
-
-
-
-
-
     }
 
     RowLayout

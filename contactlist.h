@@ -30,7 +30,7 @@ signals:
     void postItemRemoved();
 
 public slots:
-    void appendItem(QString name, QString number);
+    void appendItem(QString name, QString number, bool favourite);
     void removeItem(int index);
 
 private:

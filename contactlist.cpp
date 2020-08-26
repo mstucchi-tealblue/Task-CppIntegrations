@@ -28,13 +28,17 @@ QVector<ContactItem> ContactList::getItems() const
     return mItems;
 }
 
-void ContactList::appendItem(QString name, QString number)
+void ContactList::appendItem(QString name, QString number, bool favourite)
 {
+    if(name.isEmpty() || number.isEmpty())
+        return;
+
     emit preItemAppended();
 
     ContactItem item;
     item.name = name;
     item.number = number;
+    item.favourite = favourite;
     mItems.append(item);
 
     emit postItemAppended();
