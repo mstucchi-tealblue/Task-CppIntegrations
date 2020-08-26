@@ -31,7 +31,7 @@ QVector<ContactItem> ContactList::getItems() const
     return mItems;
 }
 
-void ContactList::appendItem(QString name, QString number, bool favourite)
+void ContactList::appendItem( QString name, QString number, bool favourite)
 {
     if(name.isEmpty() || number.isEmpty())
         return;
@@ -65,6 +65,7 @@ void ContactList::updateItem(int index, QString name, QString number, QString fa
     mItems[index].favourite = favourite == "Yes" ? true: false;
 
     emit postItemUpdated();
+
 }
 
 QString ContactList::getItemName(int index) {

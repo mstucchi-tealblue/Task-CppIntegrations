@@ -112,9 +112,13 @@ void ContactModel::setList(ContactList *list)
             endRemoveRows();
         });
 
+        // Why if i update the last contact on the book an error occurs?
+        // When i do beginRemoveRows
+
         connect(mList, &ContactList::preItemUpdated, this, [=](int index){
             beginInsertRows(QModelIndex(),index,index);
-            beginRemoveRows(QModelIndex(),index+1, index+1);
+            ++index;
+            beginRemoveRows(QModelIndex(),index, index);
 
         });
 

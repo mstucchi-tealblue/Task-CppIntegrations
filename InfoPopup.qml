@@ -61,7 +61,10 @@ Popup {
                 id: closeButton
                 text: qsTr("Close")
                 Layout.fillWidth: true
-                onClicked: infoPopup.close()
+                onClicked: {
+                    infoPopup.close()
+                }
+
             }
         }
     }

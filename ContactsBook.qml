@@ -8,7 +8,7 @@ ColumnLayout {
     Frame {
         id: root
         Layout.fillWidth: true
-         RowLayout {
+        RowLayout {
             ColumnLayout{
                 ListView {
                     id: book
