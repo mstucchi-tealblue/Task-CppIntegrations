@@ -34,33 +34,22 @@ QVector<ContactItem> ContactList::getItems() const
 
 void ContactList::appendItem(QString name, QString number, bool favourite, int index)
 {
+    if(name.isEmpty() || number.isEmpty())
+        return;
+
+    ContactItem item;
+    item.name = name;
+    item.number = number;
+    item.favourite = favourite;
+
     if( index == -1 ) {
-        if(name.isEmpty() || number.isEmpty())
-            return;
-
         emit preItemAppended();
-
-        ContactItem item;
-        item.name = name;
-        item.number = number;
-        item.favourite = favourite;
         mItems.append(item);
-
         emit postItemAppended();
-    }
-
-    else {
-
+    } else {
         emit preItemAppendedAtIndex(index);
-
-        ContactItem item;
-        item.name = name;
-        item.number = number;
-        item.favourite = favourite;
         mItems.insert(index, item);
-
         emit postItemAppendedAtIndex();
-
     }
 }
 
@@ -77,13 +66,10 @@ void ContactList::updateItem(int index, QString name, QString number, QString fa
     if( favourite != "Yes" ) booleanFavourite = false;
 
     //If the item is not the last in the list
-    if(mItems.count() != index+1)
-    {
+    if(mItems.count() != index+1) {
         appendItem(name, number, booleanFavourite, index);
         removeItem(index+1);
-    }
-    else
-    {
+    } else {
         appendItem(name, number, booleanFavourite);
         removeItem(mItems.size()-2);
     }
