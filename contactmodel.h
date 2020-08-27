@@ -41,6 +41,7 @@ public:
 private:
     ContactList *mList;
 
+
 };
 
 #endif // CONTACTMODEL_H

@@ -1,5 +1,7 @@
 #include "contactmodel.h"
 #include "contactlist.h"
+#include <QDebug>
+
 
 ContactModel::ContactModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -77,7 +79,6 @@ QHash<int, QByteArray> ContactModel::roleNames() const
     names[NumberRole] = "number";
     names[FavouriteRole] = "favourite";
     return names;
-
 }
 
 ContactList *ContactModel::list() const
@@ -104,6 +105,14 @@ void ContactModel::setList(ContactList *list)
             endInsertRows();
         });
 
+        connect(mList, &ContactList::preItemAppendedAtIndex, this, [=](int index) {
+            beginInsertRows(QModelIndex(),index,index);
+        });
+
+        connect(mList, &ContactList::postItemAppendedAtIndex, this, [=]() {
+            endInsertRows();
+        });
+
         connect(mList, &ContactList::preItemRemoved, this, [=](int index) {
             beginRemoveRows(QModelIndex(),index, index);
         });
@@ -112,21 +121,6 @@ void ContactModel::setList(ContactList *list)
             endRemoveRows();
         });
 
-        // Why if i update the last contact on the book an error occurs?
-        // When i do beginRemoveRows
-
-        connect(mList, &ContactList::preItemUpdated, this, [=](int index){
-            beginInsertRows(QModelIndex(),index,index);
-            ++index;
-            beginRemoveRows(QModelIndex(),index, index);
-
-        });
-
-        connect(mList, &ContactList::postItemUpdated, this, [=](){
-            endInsertRows();
-            endRemoveRows();
-
-        });
     }
 
     endResetModel();

@@ -1,5 +1,6 @@
 #include "contactlist.h"
 #include <iostream>
+#include <QDebug>
 
 
 
@@ -31,21 +32,36 @@ QVector<ContactItem> ContactList::getItems() const
     return mItems;
 }
 
-void ContactList::appendItem( QString name, QString number, bool favourite)
+void ContactList::appendItem(QString name, QString number, bool favourite, int index)
 {
-    if(name.isEmpty() || number.isEmpty())
-        return;
+    if( index == -1 ) {
+        if(name.isEmpty() || number.isEmpty())
+            return;
 
-    emit preItemAppended();
+        emit preItemAppended();
 
-    ContactItem item;
-    item.name = name;
-    item.number = number;
-    item.favourite = favourite;
-    mItems.append(item);
+        ContactItem item;
+        item.name = name;
+        item.number = number;
+        item.favourite = favourite;
+        mItems.append(item);
 
-    emit postItemAppended();
+        emit postItemAppended();
+    }
 
+    else {
+
+        emit preItemAppendedAtIndex(index);
+
+        ContactItem item;
+        item.name = name;
+        item.number = number;
+        item.favourite = favourite;
+        mItems.insert(index, item);
+
+        emit postItemAppendedAtIndex();
+
+    }
 }
 
 void ContactList::removeItem(int index)
@@ -57,15 +73,20 @@ void ContactList::removeItem(int index)
 
 void ContactList::updateItem(int index, QString name, QString number, QString favourite)
 {
-    emit preItemUpdated(index);
+    bool booleanFavourite = true;
+    if( favourite != "Yes" ) booleanFavourite = false;
 
-    if(favourite != "Yes") favourite = "No";
-    mItems[index].name = name;
-    mItems[index].number = number;
-    mItems[index].favourite = favourite == "Yes" ? true: false;
-
-    emit postItemUpdated();
-
+    //If the item is not the last in the list
+    if(mItems.count() != index+1)
+    {
+        appendItem(name, number, booleanFavourite, index);
+        removeItem(index+1);
+    }
+    else
+    {
+        appendItem(name, number, booleanFavourite);
+        removeItem(mItems.size()-2);
+    }
 }
 
 QString ContactList::getItemName(int index) {
